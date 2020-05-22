@@ -60,14 +60,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: occurrence_data
-          path: dist
+          path: artifacts
       - name: Donwload map
         uses: actions/download-artifact@v2
         with:
           name: map
-          path: dist
+          path: artifacts
+      - name: Move artifacts
+        run: cp -r artifacts/* dist/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: dist
