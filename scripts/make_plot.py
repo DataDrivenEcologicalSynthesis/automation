@@ -6,6 +6,6 @@ import seaborn as sns
 occurrences = pd.read_csv("occurrences.csv") 
 occurrences.head()
 
-sns.relplot(x="longitude", y="latitude", hue="name", data=occurrences);
+sns.relplot(x="longitude", y="latitude", hue="name", data=occurrences, aspect=2);
 
 plt.savefig("map.png")
