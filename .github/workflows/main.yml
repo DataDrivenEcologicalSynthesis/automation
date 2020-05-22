@@ -28,8 +28,21 @@ jobs:
         with:
           name: occurrence_data
           path: occurrences.csv
-  publish_webpage:
+  draw_the_figure:
     needs: [get_data]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+  publish_webpage:
+    needs: [get_data, draw_the_figure]
     runs-on: ubuntu-latest
     steps:
       - name: "Donwload data artifact"
@@ -41,4 +54,4 @@ jobs:
         uses: maxheld83/ghpages@v0.2.1
         env:
           BUILD_DIR: "dist/"
-          GH_PAT: ${{ secrets.TOKEN }}
+          GH_PAT: ${{ secrets.GITHUB_TOKEN }}
