@@ -23,17 +23,20 @@ jobs:
         run: julia -e 'import Pkg; Pkg.activate("."); Pkg.add(Pkg.PackageSpec(name="GBIF", rev="master"))'
       - name: Download occurrence data
         run: julia --project scripts/get_occurrences.jl
-      - name: Upload usable data folder
+      - name: Upload occurrence data
         uses: actions/upload-artifact@v1
         with:
           name: occurrence_data
-          path: data/occurrences
+          path: occurrences.csv
   publish_webpage:
     needs: [get_data]
     runs-on: ubuntu-latest
     steps:
-      - name: "Copy assets"
-        run: cp -r data dist/
+      - name: "Donwload data artifact"
+        uses: actions/download-artifact@v2
+        with:
+          name: occurrence_data
+          path: dist/occurrences.csv
       - name: "GitHub Pages deployment"
         uses: maxheld83/ghpages@v0.2.1
         env:
