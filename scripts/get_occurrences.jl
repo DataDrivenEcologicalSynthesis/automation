@@ -13,5 +13,7 @@ occ = GBIF.occurrences(sp, "hasCoordinate" => "true", "limit" => 300)
 GBIF.occurrences!(occ)
 GBIF.occurrences!(occ)
 
-CSV.write(DataFrame(occ), "occurrences.csv")
+data = select(DataFrame(occ), [:longitude, :latitude])
+
+CSV.write("occurrences.csv", data; writeheader=false)
 
