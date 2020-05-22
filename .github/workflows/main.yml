@@ -13,7 +13,7 @@ jobs:
     name: "Get data from GBIF"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout actions
+      - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Julia 1.4.0 
         uses: julia-actions/setup-julia@latest
@@ -56,18 +56,18 @@ jobs:
     needs: [get_data, draw_the_figure]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Donwload occurrence data
         uses: actions/download-artifact@v2
         with:
           name: occurrence_data
-          path: artifacts
+          path: dist
       - name: Donwload map
         uses: actions/download-artifact@v2
         with:
           name: map
-          path: artifacts
-      - name: Move artifacts
-        run: cp -r artifacts/* dist/
+          path: dist
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
