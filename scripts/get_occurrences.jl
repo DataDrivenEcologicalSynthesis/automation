@@ -8,7 +8,9 @@ sp_name = "Amphiprion ocellaris"
 sp = GBIF.taxon(sp_name)
 
 
-occ = GBIF.occurrences(sp_name, "has_coordinates" => true)
+# Get 900 occurrences
+occ = GBIF.occurrences(sp, "has_coordinates" => true, "limit" => 300)
+GBIF.occurrences!(occ)
 GBIF.occurrences!(occ)
 
 ispath("data") && mkdir("data")
