@@ -41,15 +41,32 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Donwload occurrence data
+        uses: actions/download-artifact@v2
+        with:
+          name: occurrence_data
+          path: occurrences.csv
+      - name: Make the figure
+        run: python scripts/make_plot.py
+      - name: Upload map
+        uses: actions/upload-artifact@v1
+        with:
+          name: map
+          path: map.png
   publish_webpage:
     needs: [get_data, draw_the_figure]
     runs-on: ubuntu-latest
     steps:
-      - name: "Donwload data artifact"
+      - name: Donwload occurrence data
         uses: actions/download-artifact@v2
         with:
           name: occurrence_data
           path: dist/occurrences.csv
+      - name: Donwload map
+        uses: actions/download-artifact@v2
+        with:
+          name: map
+          path: dist/map.png
       - name: "GitHub Pages deployment"
         uses: maxheld83/ghpages@v0.2.1
         env:
