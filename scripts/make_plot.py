@@ -1,11 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-x, y = np.loadtxt('example.txt', delimiter=',', unpack=True)
-plt.plot(x,y, label='Loaded from file!')
+x, y = np.loadtxt('occurrences.csv', delimiter=',', unpack=True)
+plt.scatter(x,y, label='Amphiprion ocellaris')
 
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Interesting Graph\nCheck it out')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
 plt.legend()
-plt.show()
+plt.savefig("map.png")
