@@ -45,7 +45,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: occurrence_data
-          path: occurrences.csv
       - name: Make the figure
         run: python scripts/make_plot.py
       - name: Upload map
@@ -61,12 +60,12 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: occurrence_data
-          path: dist/occurrences.csv
+          path: dist
       - name: Donwload map
         uses: actions/download-artifact@v2
         with:
           name: map
-          path: dist/map.png
+          path: dist
       - name: "GitHub Pages deployment"
         uses: maxheld83/ghpages@v0.2.1
         env:
