@@ -22,7 +22,7 @@ jobs:
       - name: Get the latest version of GBIF.jl
         run: julia -e 'import Pkg; Pkg.activate("."); Pkg.add(Pkg.PackageSpec(name="GBIF", rev="master"))'
       - name: Download occurrence data
-        run: julia --project scripts/get_data.jl
+        run: julia --project scripts/get_occurrences.jl
       - name: Upload usable data folder
         uses: actions/upload-artifact@v1
         with:
