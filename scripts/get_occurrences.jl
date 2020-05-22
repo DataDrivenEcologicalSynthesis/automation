@@ -21,5 +21,5 @@ data = select(raw_data, [:name, :longitude, :latitude])
 
 first(data, 5)
 
-CSV.write("occurrences.csv", data; writeheader=false)
+CSV.write("occurrences.csv", data; writeheader=true)
 
