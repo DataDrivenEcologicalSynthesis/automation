@@ -66,8 +66,8 @@ jobs:
         with:
           name: map
           path: dist
-      - name: "GitHub Pages deployment"
-        uses: maxheld83/ghpages@v0.2.1
-        env:
-          BUILD_DIR: "dist/"
-          GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
