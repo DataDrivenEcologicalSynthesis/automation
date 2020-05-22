@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
-x, y = np.loadtxt('occurrences.csv', delimiter=',', unpack=True)
-plt.scatter(x,y, label='Amphiprion ocellaris')
+occurrences = pd.read_csv("occurrences.csv") 
+occurrences.head()
 
-plt.xlabel('Longitude')
-plt.ylabel('Latitude')
-plt.legend()
+sns.relplot(x="longitude", y="latitude", hue="name", data=occurrences);
+
 plt.savefig("map.png")
