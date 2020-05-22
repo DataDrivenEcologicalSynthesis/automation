@@ -28,3 +28,14 @@ jobs:
         with:
           name: occurrence_data
           path: data/occurrences
+  publish_webpage:
+    needs: [get_data]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Copy assets"
+        run: cp -r data dist/
+      - name: "GitHub Pages deployment"
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          BUILD_DIR: "dist/"
+          GH_PAT: ${{ secrets.TOKEN }}
