@@ -4,7 +4,7 @@ using DataFrames
 import CSV
 
 
-sp_name = "Poecilia reticulata"
+sp_name = "Amphiprion ocellaris"
 sp = GBIF.taxon(sp_name)
 
 
