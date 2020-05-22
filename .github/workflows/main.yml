@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - master
-     schedule:
-      - cron: "0 0 * * 1"
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 1"
       
 jobs:
   get_data:
@@ -18,3 +19,12 @@ jobs:
         uses: julia-actions/setup-julia@latest
         with:
           version: 1.4.0
+      - name: Get the latest version of GBIF.jl
+        run: julia -e 'import Pkg; Pkg.activate("."); Pkg.add(PackageSpec(name="GBIF", rev="master"))'
+      - name: Download occurrence data
+        run: julia --project scripts/get_data.jl
+      - name: Upload usable data folder
+        uses: actions/upload-artifact@v1
+        with:
+          name: occurrence_data
+          path: data/occurrences
