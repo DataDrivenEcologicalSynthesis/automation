@@ -1,0 +1,20 @@
+name: "Download data and plot them"
+
+on:
+  push:
+    branches:
+      - master
+     schedule:
+      - cron: "0 0 * * 1"
+      
+jobs:
+  get_data:
+    name: "Get data from GBIF"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout actions
+        uses: actions/checkout@v2
+      - name: Setup Julia 1.4.0 
+        uses: julia-actions/setup-julia@latest
+        with:
+          version: 1.4.0
