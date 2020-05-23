@@ -58,17 +58,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Donwload occurrence data
+      - name: Download occurrence data
         uses: actions/download-artifact@v2
         with:
           name: occurrence_data
           path: dist
-      - name: Donwload map
+      - name: Download map
         uses: actions/download-artifact@v2
         with:
           name: map
           path: dist
-      - name: Deploy
+      - name: Deploy the webpage from the dist folder
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
