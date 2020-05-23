@@ -18,7 +18,7 @@ GBIF.occurrences!(occ)
 GBIF.occurrences!(occ)
 
 data = @linq DataFrame(occ) |>
-  where(:rank == "SPECIES"] |>
+  where(:rank == "SPECIES") |>
   where(:name in "Amphiprion ".*["melanopus", "ocellaris", "clarkii"]) |>
   where(:longitude > 0.0) |>
   select([:name, :longitude, :latitude])
