@@ -15,7 +15,8 @@ This figure is produced through the following steps:
   3. publishing the result through github pages
   
 All of these steps are independant, and only "communicate" using *artifacts*. The entire pipeline runs once a week (monday at midnight), on every push to the `master` branch, and on every pull request - this ensure that the results remain up to date both with regard to changes to the data, and to changes to the code.
-  
+ 
+ 
 ## See the underlying data
   
 You can find a link to the data here: [`occurrences.csv`](occurrences.csv)
