@@ -1,5 +1,6 @@
 import GBIF
 using DataFrames
+using DataFramesMeta
 import CSV
 
 
@@ -16,21 +17,11 @@ GBIF.occurrences!(occ)
 GBIF.occurrences!(occ)
 GBIF.occurrences!(occ)
 
-raw_data = DataFrame(occ)
+data = @linq DataFrame(occ) |>
+  where(:rank == "SPECIES"] |>
+  where(:name in "Amphiprion ".*["melanopus", "ocellaris", "clarkii"]) |>
+  where(:longitude > 0.0) |>
+  select([:name, :longitude, :latitude])
 
-# JUDGE NOT LEST YE BE JUDGED
-raw_data = raw_data[raw_data.rank .== "SPECIES", :]
-# Seriously
-ok_names = "Amphiprion ".*["melanopus", "ocellaris", "clarkii"]
-# It's 10pm
-ok_index = map(f -> in(f, ok_names), raw_data.name)
-# I'm so tired
-raw_data = raw_data[ok_index, :]
-# Can 2020 be over yet, please?
-raw_data = raw_data[raw_data.longitude.>=0.0, :]
-# I really should have used Query.jl or DataFramesMeta.jl is what I'm trying to say
-
-# Save only the columns we care about
-data = select(raw_data, [:name, :longitude, :latitude])
 CSV.write("occurrences.csv", data; writeheader=true)
 
