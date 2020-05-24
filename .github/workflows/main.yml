@@ -24,9 +24,9 @@ jobs:
       - name: Download occurrence data
         run: julia --project scripts/get_occurrences.jl
       - name: Upload occurrence data
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: occurrence_data
+          name: project_data
           path: occurrences.csv
   draw_the_figure:
     needs: [get_data]
@@ -44,29 +44,25 @@ jobs:
       - name: Donwload occurrence data
         uses: actions/download-artifact@v2
         with:
-          name: occurrence_data
+          name: project_data
       - name: Make the figure
         run: python scripts/make_plot.py
       - name: Upload map
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: map
+          name: project_data
           path: map.png
   publish_webpage:
     needs: [get_data, draw_the_figure]
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Download occurrence data
+      - name: Download data
         uses: actions/download-artifact@v2
         with:
-          name: occurrence_data
-          path: dist
-      - name: Download map
-        uses: actions/download-artifact@v2
-        with:
-          name: map
+          name: project_data
           path: dist
       - name: Deploy the webpage from the dist folder
         uses: peaceiris/actions-gh-pages@v3
