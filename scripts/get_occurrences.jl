@@ -19,9 +19,10 @@ GBIF.occurrences!(occ)
 
 data = @linq DataFrame(occ) |>
   where(:rank .== "SPECIES") |>
+  select([:name, :longitude, :latitude]) |>
   where(:name .∈ ["Amphiprion ".*["melanopus", "ocellaris", "clarkii"]]) |>
-  where(:longitude .> 0.0) |>
-  select([:name, :longitude, :latitude])
+  where(:longitude .> 0.0)
+  
 
 CSV.write("occurrences.csv", data; writeheader=true)
 
