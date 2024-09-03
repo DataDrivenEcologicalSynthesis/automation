@@ -42,7 +42,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Donwload occurrence data
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: occurrence_data
       - name: Make the figure
@@ -59,12 +59,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Download occurrence data
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: occurrence_data
           path: dist
       - name: Download map
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: map
           path: dist
